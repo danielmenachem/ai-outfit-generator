@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AI Outfit Generator</title>
+    </head>
+
+    <body>
+        <h1>AI Outfit Generator</h1>
+        <p>Upload a clothing item and describe the outfit you want.</p>
+
+        <form method="POST" enctype="multipart/form-data">
+            <div>
+                <label for="item-image">Upload clothing item:</label>
+                <input type="file" id="item-image" name="item-image">
+            </div>
+
+            <br>
+            
+            <div>
+                <label for="outfit-request">Describe the outfit you want:</label>
+                <input type="text" id="outfit-request" name="outfit-request">
+            </div>
+
+            <br>
+
+            <button type="submit">Generate outfit</button>
+        </form>
+
+    {% if result %}
+
+    <h2>Result</h2>
+
+    <p><strong>Uploaded image:</strong> {{ result.filename }}</p>
+    <p><strong>Your outfit request:</strong> {{ result.request }}</p>
+    <p><strong>Detected color:</strong> {{ result.color }}</p>
+
+    <img src="{{ url_for('static', filename='uploads/' + result.filename) }}" width="300">
+
+    {% endif %}
+
+    </body>
+</html>
