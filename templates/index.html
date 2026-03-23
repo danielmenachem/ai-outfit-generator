@@ -33,6 +33,9 @@
     <h2>Result</h2>
 
     <p><strong>Uploaded image:</strong> {{ result.filename }}</p>
+    <br>
+    <p><strong>Item type:</strong> {{ result.analysis.item_type }}</p>
+    <p><strong>Color / pattern:</strong> {{ result.analysis.main_color }}</p>
     <p><strong>Your outfit request:</strong> {{ result.request }}</p>
     <p><strong>Detected color:</strong> {{ result.color }}</p>
 

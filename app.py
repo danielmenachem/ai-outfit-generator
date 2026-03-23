@@ -1,11 +1,9 @@
-import uuid
-import os
 from flask import Flask, render_template, request
-from vision import detect_dominant_color
+from services.image_service import save_image
+from image_analyzer import analyze_item
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = "static/uploads"
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -17,16 +15,14 @@ def home():
         image_file = request.files.get("item-image")
 
         if image_file and image_file.filename != "":
-            unique_filename = str(uuid.uuid4()) + ".jpg"
-            file_path = os.path.join(UPLOAD_FOLDER, unique_filename)
-            image_file.save(file_path)
+            unique_filename, file_path = save_image(image_file)
             
-            dominant_color = detect_dominant_color(file_path)
+            analysis = analyze_item(file_path)
 
             result = {
                 "filename": unique_filename,
                 "request": outfit_request,
-                "color": dominant_color
+                "analysis": analysis
             }
     
     return render_template("index.html", result=result)
